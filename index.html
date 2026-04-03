@@ -1,0 +1,1538 @@
+<!--
+====================================================
+INSTRUCCIONES PARA LAS IMÁGENES:
+Reemplaza estos placeholders con tus imágenes:
+
+ = imagen 1000055071.png (foto panorámica del curso)
+ = imagen 1000055063.png (foto del robot IA)
+ = imagen 1000055067.png (portada del libro)
+ = imagen 1000055056.png (foto multi-dispositivos)
+
+Para usarlas: convierte cada imagen a base64 en:
+https://www.base64-image.de/
+y reemplaza el texto PLACEHOLDER_IMG_X con:
+data:image/png;base64,TUCODIGO...
+====================================================
+-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucktan — eBooks de Emprendimiento</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0d0a;
+    --cream: #faf7f2;
+    --gold: #c9a84c;
+    --gold-light: #e8d5a3;
+    --terracotta: #c4622d;
+    --sage: #5c7a5f;
+    --slate: #2d3748;
+    --mist: #e8e4dc;
+    --shadow: rgba(15,13,10,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--ink);
+    padding: 0 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.4);
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--gold);
+    letter-spacing: -0.5px;
+  }
+  .logo span { color: var(--cream); font-style: italic; }
+  nav { display: flex; gap: 2rem; }
+  nav a {
+    color: var(--mist);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--gold); }
+  .cart-btn {
+    background: var(--gold);
+    color: var(--ink);
+    border: none;
+    padding: 0.5rem 1.2rem;
+    border-radius: 2px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .cart-btn:hover { background: var(--gold-light); }
+  .cart-count {
+    background: var(--terracotta);
+    color: white;
+    border-radius: 50%;
+    width: 20px; height: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 700;
+  }
+
+  /* ── HERO CAROUSEL ── */
+  .hero {
+    position: relative;
+    height: 480px;
+    overflow: hidden;
+    background: var(--ink);
+  }
+  .carousel-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.7s cubic-bezier(0.77,0,0.175,1);
+  }
+  .carousel-slide {
+    min-width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 6rem;
+    overflow: hidden;
+  }
+  .slide-bg {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.35;
+    transition: transform 8s ease;
+  }
+  .carousel-slide:hover .slide-bg { transform: scale(1.05); }
+  .slide-content {
+    position: relative;
+    z-index: 2;
+    max-width: 550px;
+  }
+  .slide-tag {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--ink);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    margin-bottom: 1rem;
+    border-radius: 2px;
+  }
+  .slide-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.2rem;
+    line-height: 1.1;
+    color: var(--cream);
+    margin-bottom: 1rem;
+  }
+  .slide-desc {
+    color: rgba(250,247,242,0.7);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    max-width: 400px;
+  }
+  .slide-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+  .slide-cta {
+    background: var(--gold);
+    color: var(--ink);
+    border: none;
+    padding: 0.8rem 2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+  }
+  .slide-cta:hover {
+    background: var(--cream);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(201,168,76,0.3);
+  }
+  .slide-book-mockup {
+    position: absolute;
+    right: 8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 200px;
+    height: 280px;
+    border-radius: 4px;
+    box-shadow: 20px 20px 60px rgba(0,0,0,0.6), -5px -5px 20px rgba(255,255,255,0.05);
+    overflow: hidden;
+    z-index: 2;
+  }
+  .slide-book-mockup img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .slide-book-mockup .book-spine {
+    position: absolute;
+    left: 0; top: 0;
+    width: 20px; height: 100%;
+    background: rgba(0,0,0,0.4);
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+
+  /* Carousel Controls */
+  .carousel-controls {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.5rem;
+    z-index: 10;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(250,247,242,0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    border: none;
+  }
+  .dot.active {
+    background: var(--gold);
+    width: 24px;
+    border-radius: 4px;
+  }
+  .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--cream);
+    width: 48px; height: 48px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 1.2rem;
+    transition: all 0.2s;
+    border-radius: 50%;
+  }
+  .carousel-arrow:hover { background: var(--gold); color: var(--ink); }
+  .arrow-prev { left: 2rem; }
+  .arrow-next { right: 2rem; }
+
+  /* ── CATEGORIES ── */
+  .section-header {
+    text-align: center;
+    padding: 4rem 2rem 2rem;
+  }
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    color: var(--ink);
+  }
+
+  .categories-bar {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 1.5rem 2rem 2.5rem;
+  }
+  .cat-btn {
+    padding: 0.55rem 1.4rem;
+    border: 1.5px solid var(--mist);
+    background: transparent;
+    color: var(--slate);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 30px;
+    transition: all 0.25s;
+    display: flex; align-items: center; gap: 0.4rem;
+  }
+  .cat-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(201,168,76,0.06);
+  }
+  .cat-btn.active {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--gold);
+    box-shadow: 0 4px 14px var(--shadow);
+  }
+  .cat-icon { font-size: 1rem; }
+
+  /* ── PRODUCTS GRID ── */
+  .products-section {
+    padding: 0 3rem 5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 2rem;
+  }
+
+  .book-card {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px var(--shadow);
+    transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    cursor: pointer;
+    position: relative;
+  }
+  .book-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(15,13,10,0.15);
+  }
+  .book-card.hidden { display: none; }
+
+  .card-cover {
+    height: 260px;
+    overflow: hidden;
+    position: relative;
+  }
+  .card-cover img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .book-card:hover .card-cover img { transform: scale(1.06); }
+
+  .card-badge {
+    position: absolute;
+    top: 12px; left: 12px;
+    background: var(--terracotta);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: 3px;
+  }
+  .card-badge.new { background: var(--sage); }
+  .card-badge.bestseller { background: var(--gold); color: var(--ink); }
+
+  .card-wishlist {
+    position: absolute;
+    top: 12px; right: 12px;
+    background: white;
+    border: none;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 8px var(--shadow);
+    transition: all 0.2s;
+    opacity: 0;
+  }
+  .book-card:hover .card-wishlist { opacity: 1; }
+  .card-wishlist:hover { transform: scale(1.1); }
+  .card-wishlist.liked { opacity: 1; color: #e05252; }
+
+  .card-body {
+    padding: 1.2rem 1.4rem 1.4rem;
+  }
+  .card-category {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+  }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    line-height: 1.3;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+  }
+  .card-author {
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 0.7rem;
+  }
+  .card-stars {
+    display: flex; align-items: center; gap: 0.3rem;
+    margin-bottom: 1rem;
+    font-size: 0.8rem;
+    color: var(--gold);
+  }
+  .card-stars span { color: #999; font-size: 0.75rem; }
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .card-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--ink);
+    font-weight: 700;
+  }
+  .card-price .old-price {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    color: #bbb;
+    text-decoration: line-through;
+    font-weight: 400;
+    margin-left: 0.3rem;
+  }
+  .add-btn {
+    background: var(--ink);
+    color: var(--gold);
+    border: none;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 1.3rem;
+    transition: all 0.2s;
+  }
+  .add-btn:hover {
+    background: var(--gold);
+    color: var(--ink);
+    transform: rotate(90deg);
+  }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    text-align: center;
+    padding: 5rem 2rem;
+    grid-column: 1/-1;
+    display: none;
+  }
+  .empty-state.show { display: block; }
+  .empty-state p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: #bbb;
+  }
+
+  /* ── CART PANEL ── */
+  .cart-overlay {
+    position: fixed; inset: 0;
+    background: rgba(15,13,10,0.5);
+    z-index: 200;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+    backdrop-filter: blur(4px);
+  }
+  .cart-overlay.open { opacity: 1; pointer-events: all; }
+  .cart-panel {
+    position: fixed;
+    right: 0; top: 0; bottom: 0;
+    width: 420px;
+    background: var(--cream);
+    z-index: 201;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.77,0,0.175,1);
+    display: flex; flex-direction: column;
+    box-shadow: -10px 0 40px rgba(0,0,0,0.2);
+  }
+  .cart-panel.open { transform: translateX(0); }
+  .cart-header-p {
+    padding: 2rem;
+    border-bottom: 1px solid var(--mist);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .cart-header-p h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+  }
+  .cart-close {
+    background: none; border: none;
+    font-size: 1.5rem; cursor: pointer;
+    color: var(--ink); transition: transform 0.2s;
+  }
+  .cart-close:hover { transform: rotate(90deg); }
+  .cart-items-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+  .cart-item {
+    display: flex; gap: 1rem;
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 8px var(--shadow);
+    animation: slideIn 0.3s ease;
+  }
+  @keyframes slideIn {
+    from { opacity:0; transform: translateX(20px); }
+    to { opacity:1; transform: translateX(0); }
+  }
+  .cart-item-img {
+    width: 60px; height: 80px;
+    border-radius: 4px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .cart-item-info { flex: 1; }
+  .cart-item-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    margin-bottom: 0.2rem;
+  }
+  .cart-item-author { font-size: 0.75rem; color: #999; margin-bottom: 0.4rem; }
+  .cart-item-price { font-weight: 700; color: var(--ink); }
+  .cart-item-remove {
+    background: none; border: none; cursor: pointer;
+    color: #ccc; font-size: 1.1rem; transition: color 0.2s;
+    align-self: flex-start;
+  }
+  .cart-item-remove:hover { color: var(--terracotta); }
+  .cart-empty-msg {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #bbb;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+  }
+  .cart-footer-p {
+    padding: 1.5rem 2rem;
+    border-top: 1px solid var(--mist);
+  }
+  .cart-total {
+    display: flex; justify-content: space-between;
+    margin-bottom: 1.2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  .cart-total strong {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--gold);
+  }
+  .checkout-btn {
+    width: 100%;
+    background: var(--ink);
+    color: var(--gold);
+    border: none;
+    padding: 1rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+  }
+  .checkout-btn:hover {
+    background: var(--gold);
+    color: var(--ink);
+  }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 2rem; left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--ink);
+    color: var(--gold);
+    padding: 0.8rem 1.5rem;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    z-index: 300;
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    white-space: nowrap;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(250,247,242,0.5);
+    text-align: center;
+    padding: 2.5rem;
+    font-size: 0.85rem;
+  }
+  footer strong { color: var(--gold); }
+
+  /* ── HERO BANNER ── */
+  .hero-banner {
+    background: var(--ink);
+    text-align: center;
+    padding: 3.5rem 2rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-banner::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 120%, rgba(201,168,76,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-banner-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+  .hero-banner-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.4rem;
+    color: var(--cream);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+  .hero-banner-title span { color: var(--gold); font-style: italic; }
+  .hero-banner-desc {
+    color: rgba(250,247,242,0.65);
+    font-size: 1.05rem;
+    letter-spacing: 0.3px;
+    font-style: italic;
+  }
+
+  /* ── NOT AVAILABLE overlay ── */
+  .unavailable-overlay {
+    position: absolute; inset: 0;
+    background: rgba(15,13,10,0.62);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 0.4rem;
+    z-index: 5;
+    border-radius: 0;
+  }
+  .unavailable-badge {
+    background: #e05252;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 0.3rem 0.9rem;
+    border-radius: 20px;
+  }
+  .unavailable-sub {
+    color: rgba(255,255,255,0.65);
+    font-size: 0.75rem;
+  }
+  .book-card.unavailable .add-btn {
+    opacity: 0.35;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  .book-card.unavailable .card-price { color: #aaa; }
+
+  @media (max-width: 768px) {
+    header { padding: 0 1.5rem; }
+    nav { display: none; }
+    .hero { height: 240px; }
+    .slide-title { font-size: 1.4rem; }
+    .slide-desc { display: none; }
+    .slide-book-mockup { display: none; }
+    .slide-content { padding: 0; }
+    .carousel-slide { padding: 0 1.5rem; }
+    .products-section { padding: 0 1.2rem 4rem; }
+    .cart-panel { width: 100%; }
+    .hero-banner-title { font-size: 2rem; }
+  }
+  /* ── PRODUCT CAROUSEL ── */
+  .prod-carousel { position:relative; width:100%; height:100%; }
+  .prod-slide {
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    opacity:0;
+    transition: opacity 0.6s ease;
+  }
+  .prod-slide.active { opacity:1; }
+  .prod-dots {
+    position:absolute; bottom:10px; left:50%;
+    transform:translateX(-50%);
+    display:flex; gap:5px; z-index:5;
+  }
+  .pd {
+    width:7px; height:7px;
+    background:rgba(255,255,255,0.4);
+    border-radius:50%;
+    cursor:pointer;
+    transition:all 0.3s;
+  }
+  .pd.active { background:var(--gold); width:18px; border-radius:4px; }
+
+  /* ── VER MÁS BUTTON ── */
+  .ver-mas-btn {
+    display:inline-block;
+    margin: 0.6rem 0 0;
+    background: transparent;
+    border: 1.5px solid var(--gold);
+    color: var(--gold);
+    font-family:'DM Sans',sans-serif;
+    font-size:0.8rem;
+    font-weight:600;
+    padding:0.4rem 1rem;
+    border-radius:20px;
+    cursor:pointer;
+    transition:all 0.2s;
+    letter-spacing:0.5px;
+  }
+  .ver-mas-btn:hover { background:var(--gold); color:var(--ink); }
+
+  /* ── WHATSAPP LINK ── */
+  .wa-link {
+    display:flex; align-items:center; gap:0.4rem;
+    margin-top:0.8rem;
+    font-size:0.78rem;
+    color:#25d366;
+    text-decoration:none;
+    font-weight:500;
+    transition:opacity 0.2s;
+  }
+  .wa-link:hover { opacity:0.8; }
+  .wa-link strong { color:var(--ink); }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    position:fixed; inset:0;
+    background:rgba(10,8,5,0.75);
+    backdrop-filter:blur(6px);
+    z-index:500;
+    display:flex; align-items:center; justify-content:center;
+    padding:1rem;
+    opacity:0; pointer-events:none;
+    transition:opacity 0.3s;
+  }
+  .modal-overlay.open { opacity:1; pointer-events:all; }
+  .modal-box {
+    background:var(--cream);
+    border-radius:12px;
+    max-width:560px; width:100%;
+    max-height:88vh;
+    overflow-y:auto;
+    box-shadow:0 30px 80px rgba(0,0,0,0.5);
+    transform:translateY(30px);
+    transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .modal-overlay.open .modal-box { transform:translateY(0); }
+  .modal-header {
+    background:var(--ink);
+    padding:1.5rem 1.8rem;
+    border-radius:12px 12px 0 0;
+    display:flex; justify-content:space-between; align-items:flex-start;
+  }
+  .modal-header h2 {
+    font-family:'Playfair Display',serif;
+    color:var(--gold);
+    font-size:1.2rem;
+    line-height:1.3;
+    max-width:90%;
+  }
+  .modal-close {
+    background:none; border:none; color:rgba(255,255,255,0.5);
+    font-size:1.4rem; cursor:pointer; transition:color 0.2s; flex-shrink:0;
+  }
+  .modal-close:hover { color:var(--gold); }
+  .modal-body { padding:1.5rem 1.8rem; }
+  .modal-body p { font-size:0.9rem; line-height:1.7; color:#444; margin-bottom:0.8rem; }
+  .modal-body .emoji-line { font-size:0.88rem; margin:0.3rem 0; }
+  .modal-price-section {
+    background:var(--ink);
+    border-radius:8px;
+    padding:1.2rem 1.5rem;
+    margin-top:1.2rem;
+    display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:0.8rem;
+  }
+  .modal-price {
+    font-family:'Playfair Display',serif;
+    font-size:1.8rem;
+    color:var(--gold);
+  }
+  .modal-old-price { font-size:0.85rem; color:#888; text-decoration:line-through; }
+  .modal-cta {
+    background:var(--gold);
+    color:var(--ink);
+    border:none;
+    padding:0.7rem 1.5rem;
+    font-family:'DM Sans',sans-serif;
+    font-weight:700;
+    font-size:0.9rem;
+    border-radius:4px;
+    cursor:pointer;
+    transition:all 0.2s;
+  }
+  .modal-cta:hover { background:var(--cream); transform:translateY(-1px); }
+  .modal-wa {
+    display:flex; align-items:center; gap:0.5rem;
+    margin-top:1rem;
+    font-size:0.82rem;
+    color:#25d366;
+    text-decoration:none;
+    font-weight:600;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">Luck<span>tan</span></div>
+  <nav>
+    <a href="#">Inicio</a>
+    <a href="#">Novedades</a>
+    <a href="#">Bestsellers</a>
+    <a href="#">Autores</a>
+  </nav>
+  <button class="cart-btn" onclick="toggleCart()">
+    🛒 Carrito
+    <span class="cart-count" id="cartCount">0</span>
+  </button>
+</header>
+
+<!-- HERO BANNER (título principal) -->
+<div class="hero-banner">
+  <p class="hero-banner-label">✦ Tienda de eBooks</p>
+  <h1 class="hero-banner-title">Luck<span>tan</span></h1>
+  <p class="hero-banner-desc">"eBooks que dan un giro a tu emprendimiento"</p>
+</div>
+
+<!-- HERO CAROUSEL (más pequeño) -->
+<section class="hero" style="height:280px;">
+  <div class="carousel-track" id="carouselTrack">
+
+    <!-- Slide 1 — IA Disponible -->
+    <div class="carousel-slide" style="padding:0;overflow:hidden;">
+      <div style="width:100%;height:100%;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);display:flex;align-items:center;justify-content:space-between;padding:2rem 3rem;">
+        <div style="z-index:2;">
+          <span style="background:#c9a84c;color:#0f0d0a;font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:0.25rem 0.8rem;border-radius:2px;">✅ Disponible ahora</span>
+          <h1 class="slide-title" style="font-size:1.6rem;margin:0.6rem 0 0.4rem;">🤖 Inteligencia Artificial:<br>Aprende a Crear y Transformar</h1>
+          <p style="color:rgba(250,247,242,0.7);font-size:0.8rem;margin-bottom:0.8rem;">+30 herramientas IA · Certificación internacional · $180,00 US$</p>
+          <a href="https://wa.me/900452563" target="_blank" style="display:inline-flex;align-items:center;gap:0.4rem;background:#25d366;color:#fff;text-decoration:none;padding:0.45rem 1rem;border-radius:20px;font-size:0.78rem;font-weight:700;">
+            <svg viewBox="0 0 32 32" width="14" height="14" fill="white"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.47.67 4.84 1.84 6.9L2 30l7.32-1.82A13.93 13.93 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm0 25.5a11.44 11.44 0 01-5.85-1.6l-.42-.25-4.34 1.08 1.1-4.22-.27-.44A11.46 11.46 0 014.5 16C4.5 9.6 9.6 4.5 16 4.5S27.5 9.6 27.5 16 22.4 27.5 16 27.5zm6.27-8.54c-.34-.17-2.02-.99-2.34-1.1-.31-.12-.54-.17-.77.17-.23.34-.88 1.1-1.08 1.33-.2.23-.4.26-.74.09-.34-.17-1.44-.53-2.74-1.69a10.3 10.3 0 01-1.9-2.36c-.2-.34-.02-.53.15-.7.15-.15.34-.4.51-.6.17-.2.23-.34.34-.57.12-.23.06-.43-.03-.6-.09-.17-.77-1.86-1.06-2.55-.28-.67-.56-.58-.77-.59H9.8c-.2 0-.52.07-.79.34-.28.28-1.05 1.03-1.05 2.5 0 1.48 1.08 2.91 1.23 3.11.17.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 2.02-.82 2.3-1.62.29-.8.29-1.48.2-1.62-.08-.14-.31-.23-.65-.4z"/></svg>
+            N° 900-452-563
+          </a>
+        </div>
+        <div style="font-size:5rem;opacity:0.15;position:absolute;right:2rem;">🤖</div>
+      </div>
+    </div>
+
+    <!-- Slide 2 — Marketing Digital -->
+    <div class="carousel-slide" style="padding:0;overflow:hidden;">
+      <div style="width:100%;height:100%;background:linear-gradient(135deg,#c94b4b,#4b134f);display:flex;align-items:center;padding:2rem 3rem;">
+        <div style="z-index:2;">
+          <span style="background:rgba(255,255,255,0.2);color:#fff;font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:0.25rem 0.8rem;border-radius:2px;">🔒 Próximamente</span>
+          <h1 class="slide-title" style="font-size:1.6rem;margin:0.6rem 0 0.4rem;">📣 Marketing Digital y Directo</h1>
+          <p style="color:rgba(255,255,255,0.7);font-size:0.8rem;margin-bottom:0.8rem;">Ventas · Email Marketing · Estrategias que convierten</p>
+          <a href="https://wa.me/900452563" target="_blank" style="display:inline-flex;align-items:center;gap:0.4rem;background:#25d366;color:#fff;text-decoration:none;padding:0.45rem 1rem;border-radius:20px;font-size:0.78rem;font-weight:700;">
+            <svg viewBox="0 0 32 32" width="14" height="14" fill="white"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.47.67 4.84 1.84 6.9L2 30l7.32-1.82A13.93 13.93 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm0 25.5a11.44 11.44 0 01-5.85-1.6l-.42-.25-4.34 1.08 1.1-4.22-.27-.44A11.46 11.46 0 014.5 16C4.5 9.6 9.6 4.5 16 4.5S27.5 9.6 27.5 16 22.4 27.5 16 27.5zm6.27-8.54c-.34-.17-2.02-.99-2.34-1.1-.31-.12-.54-.17-.77.17-.23.34-.88 1.1-1.08 1.33-.2.23-.4.26-.74.09-.34-.17-1.44-.53-2.74-1.69a10.3 10.3 0 01-1.9-2.36c-.2-.34-.02-.53.15-.7.15-.15.34-.4.51-.6.17-.2.23-.34.34-.57.12-.23.06-.43-.03-.6-.09-.17-.77-1.86-1.06-2.55-.28-.67-.56-.58-.77-.59H9.8c-.2 0-.52.07-.79.34-.28.28-1.05 1.03-1.05 2.5 0 1.48 1.08 2.91 1.23 3.11.17.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 2.02-.82 2.3-1.62.29-.8.29-1.48.2-1.62-.08-.14-.31-.23-.65-.4z"/></svg>
+            Más info: N° 900-452-563
+          </a>
+        </div>
+        <div style="font-size:5rem;opacity:0.12;position:absolute;right:2rem;">📣</div>
+      </div>
+    </div>
+
+    <!-- Slide 3 — Desarrollo Web -->
+    <div class="carousel-slide" style="padding:0;overflow:hidden;">
+      <div style="width:100%;height:100%;background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);display:flex;align-items:center;padding:2rem 3rem;">
+        <div style="z-index:2;">
+          <span style="background:rgba(255,255,255,0.2);color:#fff;font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:0.25rem 0.8rem;border-radius:2px;">🔒 Próximamente</span>
+          <h1 class="slide-title" style="font-size:1.6rem;margin:0.6rem 0 0.4rem;">🌐 Desarrollo Web</h1>
+          <p style="color:rgba(255,255,255,0.7);font-size:0.8rem;margin-bottom:0.8rem;">HTML · CSS · JavaScript · Tu web profesional desde cero</p>
+          <a href="https://wa.me/900452563" target="_blank" style="display:inline-flex;align-items:center;gap:0.4rem;background:#25d366;color:#fff;text-decoration:none;padding:0.45rem 1rem;border-radius:20px;font-size:0.78rem;font-weight:700;">
+            <svg viewBox="0 0 32 32" width="14" height="14" fill="white"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.47.67 4.84 1.84 6.9L2 30l7.32-1.82A13.93 13.93 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm0 25.5a11.44 11.44 0 01-5.85-1.6l-.42-.25-4.34 1.08 1.1-4.22-.27-.44A11.46 11.46 0 014.5 16C4.5 9.6 9.6 4.5 16 4.5S27.5 9.6 27.5 16 22.4 27.5 16 27.5zm6.27-8.54c-.34-.17-2.02-.99-2.34-1.1-.31-.12-.54-.17-.77.17-.23.34-.88 1.1-1.08 1.33-.2.23-.4.26-.74.09-.34-.17-1.44-.53-2.74-1.69a10.3 10.3 0 01-1.9-2.36c-.2-.34-.02-.53.15-.7.15-.15.34-.4.51-.6.17-.2.23-.34.34-.57.12-.23.06-.43-.03-.6-.09-.17-.77-1.86-1.06-2.55-.28-.67-.56-.58-.77-.59H9.8c-.2 0-.52.07-.79.34-.28.28-1.05 1.03-1.05 2.5 0 1.48 1.08 2.91 1.23 3.11.17.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 2.02-.82 2.3-1.62.29-.8.29-1.48.2-1.62-.08-.14-.31-.23-.65-.4z"/></svg>
+            Más info: N° 900-452-563
+          </a>
+        </div>
+        <div style="font-size:5rem;opacity:0.12;position:absolute;right:2rem;">🌐</div>
+      </div>
+    </div>
+
+    <!-- Slide 4 — Datos & Diseño -->
+    <div class="carousel-slide" style="padding:0;overflow:hidden;">
+      <div style="width:100%;height:100%;background:linear-gradient(135deg,#7f00ff,#e100ff,#4b134f);display:flex;align-items:center;padding:2rem 3rem;">
+        <div style="z-index:2;">
+          <span style="background:rgba(255,255,255,0.2);color:#fff;font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:0.25rem 0.8rem;border-radius:2px;">🔒 Próximamente</span>
+          <h1 class="slide-title" style="font-size:1.6rem;margin:0.6rem 0 0.4rem;">📊 Datos Empresariales · 🎨 Diseño</h1>
+          <p style="color:rgba(255,255,255,0.7);font-size:0.8rem;margin-bottom:0.8rem;">Excel · Dashboards · Canva Pro · Branding · UI/UX</p>
+          <a href="https://wa.me/900452563" target="_blank" style="display:inline-flex;align-items:center;gap:0.4rem;background:#25d366;color:#fff;text-decoration:none;padding:0.45rem 1rem;border-radius:20px;font-size:0.78rem;font-weight:700;">
+            <svg viewBox="0 0 32 32" width="14" height="14" fill="white"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.47.67 4.84 1.84 6.9L2 30l7.32-1.82A13.93 13.93 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm0 25.5a11.44 11.44 0 01-5.85-1.6l-.42-.25-4.34 1.08 1.1-4.22-.27-.44A11.46 11.46 0 014.5 16C4.5 9.6 9.6 4.5 16 4.5S27.5 9.6 27.5 16 22.4 27.5 16 27.5zm6.27-8.54c-.34-.17-2.02-.99-2.34-1.1-.31-.12-.54-.17-.77.17-.23.34-.88 1.1-1.08 1.33-.2.23-.4.26-.74.09-.34-.17-1.44-.53-2.74-1.69a10.3 10.3 0 01-1.9-2.36c-.2-.34-.02-.53.15-.7.15-.15.34-.4.51-.6.17-.2.23-.34.34-.57.12-.23.06-.43-.03-.6-.09-.17-.77-1.86-1.06-2.55-.28-.67-.56-.58-.77-.59H9.8c-.2 0-.52.07-.79.34-.28.28-1.05 1.03-1.05 2.5 0 1.48 1.08 2.91 1.23 3.11.17.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 2.02-.82 2.3-1.62.29-.8.29-1.48.2-1.62-.08-.14-.31-.23-.65-.4z"/></svg>
+            Más info: N° 900-452-563
+          </a>
+        </div>
+        <div style="font-size:5rem;opacity:0.12;position:absolute;right:2rem;">🎨</div>
+      </div>
+    </div>
+
+  </div>
+
+  <button class="carousel-arrow arrow-prev" onclick="moveCarousel(-1)">‹</button>
+  <button class="carousel-arrow arrow-next" onclick="moveCarousel(1)">›</button>
+
+  <div class="carousel-controls" id="carouselDots"></div>
+</section>
+
+<!-- CATEGORIES -->
+<div class="section-header">
+  <p class="section-label">Explorar colección</p>
+  <h2 class="section-title">eBooks de Emprendimiento</h2>
+</div>
+
+<div class="categories-bar" id="categoriesBar">
+  <button class="cat-btn active" data-cat="all" onclick="filterBooks('all', this)">
+    <span class="cat-icon">📚</span> Todos
+  </button>
+  <button class="cat-btn" data-cat="Inteligencia Artificial" onclick="filterBooks('Inteligencia Artificial', this)">
+    <span class="cat-icon">🤖</span> Inteligencia Artificial
+  </button>
+  <button class="cat-btn" data-cat="Marketing Digital" onclick="filterBooks('Marketing Digital', this)">
+    <span class="cat-icon">📣</span> Marketing Digital y Directo
+  </button>
+  <button class="cat-btn" data-cat="Desarrollo Web" onclick="filterBooks('Desarrollo Web', this)">
+    <span class="cat-icon">🌐</span> Desarrollo Web
+  </button>
+  <button class="cat-btn" data-cat="Datos Empresariales" onclick="filterBooks('Datos Empresariales', this)">
+    <span class="cat-icon">📊</span> Datos Empresariales
+  </button>
+  <button class="cat-btn" data-cat="Diseño" onclick="filterBooks('Diseño', this)">
+    <span class="cat-icon">🎨</span> Diseño
+  </button>
+</div>
+
+<!-- PRODUCTS GRID -->
+<section class="products-section">
+  <div class="products-grid" id="productsGrid">
+
+<!-- 🤖 IA — DISPONIBLE -->
+    <div class="book-card" data-cat="Inteligencia Artificial" style="grid-column: span 1;">
+
+      <!-- Mini carrusel de imágenes del producto -->
+      <div class="card-cover" style="position:relative;height:280px;overflow:hidden;">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.2rem;text-align:center;position:relative;">
+          <div style="font-size:2.8rem;margin-bottom:0.5rem;">🤖</div>
+          <div style="font-size:0.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:0.4rem;">Inteligencia Artificial</div>
+          <div style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:0.8rem;">IA: Aprende a Crear y Transformar</div>
+          <span style="background:#5c7a5f;color:white;font-size:0.62rem;font-weight:700;padding:0.25rem 0.7rem;border-radius:20px;letter-spacing:1px;">✅ Disponible</span>
+          <a href="https://wa.me/900452563" target="_blank" style="margin-top:0.8rem;display:flex;align-items:center;gap:0.4rem;background:rgba(0,0,0,0.35);border-radius:20px;padding:0.35rem 0.8rem;text-decoration:none;"><svg viewBox="0 0 32 32" width="16" height="16" fill="#25d366"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.47.67 4.84 1.84 6.9L2 30l7.32-1.82A13.93 13.93 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm0 25.5a11.44 11.44 0 01-5.85-1.6l-.42-.25-4.34 1.08 1.1-4.22-.27-.44A11.46 11.46 0 014.5 16C4.5 9.6 9.6 4.5 16 4.5S27.5 9.6 27.5 16 22.4 27.5 16 27.5zm6.27-8.54c-.34-.17-2.02-.99-2.34-1.1-.31-.12-.54-.17-.77.17-.23.34-.88 1.1-1.08 1.33-.2.23-.4.26-.74.09-.34-.17-1.44-.53-2.74-1.69a10.3 10.3 0 01-1.9-2.36c-.2-.34-.02-.53.15-.7.15-.15.34-.4.51-.6.17-.2.23-.34.34-.57.12-.23.06-.43-.03-.6-.09-.17-.77-1.86-1.06-2.55-.28-.67-.56-.58-.77-.59H9.8c-.2 0-.52.07-.79.34-.28.28-1.05 1.03-1.05 2.5 0 1.48 1.08 2.91 1.23 3.11.17.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 2.02-.82 2.3-1.62.29-.8.29-1.48.2-1.62-.08-.14-.31-.23-.65-.4z"/></svg><span style="color:#fff;font-size:0.72rem;font-weight:600;">N° 900-452-563</span></a>
+        </div>
+        <span class="card-badge bestseller" style="z-index:6;">✅ Disponible</span>
+        <button class="card-wishlist" onclick="toggleWish(this)" style="z-index:6;">♡</button>
+      </div>
+
+      <div class="card-body">
+        <p class="card-category">🤖 Inteligencia Artificial</p>
+        <h3 class="card-title">Inteligencia Artificial: Aprende a Crear y Transformar</h3>
+        <p class="card-author">— ODEP Perú · Curso Online</p>
+        <div class="card-stars">★★★★★ <span>(+300 alumnos)</span></div>
+
+        <button class="ver-mas-btn" onclick="openModal()">👁 Ver más</button>
+
+        <div class="card-footer" style="margin-top:0.8rem;">
+          <div class="card-price" style="font-size:1.3rem;">180,00 US$
+            <span class="old-price">200,00 US$</span>
+          </div>
+          <button class="add-btn" onclick="addToCart('IA: Aprende a Crear y Transformar', 49, '', 'Inteligencia Artificial')">+</button>
+        </div>
+
+        <!-- WhatsApp info -->
+        <a href="https://wa.me/900452563" target="_blank" class="wa-link">
+          <svg viewBox="0 0 32 32" width="18" height="18" fill="#25d366"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.47.67 4.84 1.84 6.9L2 30l7.32-1.82A13.93 13.93 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm0 25.5a11.44 11.44 0 01-5.85-1.6l-.42-.25-4.34 1.08 1.1-4.22-.27-.44A11.46 11.46 0 014.5 16C4.5 9.6 9.6 4.5 16 4.5S27.5 9.6 27.5 16 22.4 27.5 16 27.5zm6.27-8.54c-.34-.17-2.02-.99-2.34-1.1-.31-.12-.54-.17-.77.17-.23.34-.88 1.1-1.08 1.33-.2.23-.4.26-.74.09-.34-.17-1.44-.53-2.74-1.69a10.3 10.3 0 01-1.9-2.36c-.2-.34-.02-.53.15-.7.15-.15.34-.4.51-.6.17-.2.23-.34.34-.57.12-.23.06-.43-.03-.6-.09-.17-.77-1.86-1.06-2.55-.28-.67-.56-.58-.77-.59H9.8c-.2 0-.52.07-.79.34-.28.28-1.05 1.03-1.05 2.5 0 1.48 1.08 2.91 1.23 3.11.17.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 2.02-.82 2.3-1.62.29-.8.29-1.48.2-1.62-.08-.14-.31-.23-.65-.4z"/></svg>
+          Más información al <strong>N° 900-452-563</strong>
+        </a>
+      </div>
+    </div>
+
+    <!-- 🤖 IA — NO DISPONIBLE -->
+    <div class="book-card unavailable" data-cat="Inteligencia Artificial">
+      <div class="card-cover">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.2rem;text-align:center;position:relative;">
+          <div style="font-size:2.8rem;margin-bottom:0.5rem;">🤖</div>
+          <div style="font-size:0.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:0.4rem;">Inteligencia Artificial</div>
+          <div style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:0.8rem;">Machine Learning Sin Código</div>
+          <span style="background:#e05252;color:white;font-size:0.62rem;font-weight:700;padding:0.25rem 0.7rem;border-radius:20px;letter-spacing:1px;">🔒 Próximamente</span>
+          <a href="https://wa.me/900452563" target="_blank" style="margin-top:0.8rem;display:flex;align-items:center;gap:0.4rem;background:rgba(0,0,0,0.35);border-radius:20px;padding:0.35rem 0.8rem;text-decoration:none;"><svg viewBox="0 0 32 32" width="16" height="16" fill="#25d366"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.47.67 4.84 1.84 6.9L2 30l7.32-1.82A13.93 13.93 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm0 25.5a11.44 11.44 0 01-5.85-1.6l-.42-.25-4.34 1.08 1.1-4.22-.27-.44A11.46 11.46 0 014.5 16C4.5 9.6 9.6 4.5 16 4.5S27.5 9.6 27.5 16 22.4 27.5 16 27.5zm6.27-8.54c-.34-.17-2.02-.99-2.34-1.1-.31-.12-.54-.17-.77.17-.23.34-.88 1.1-1.08 1.33-.2.23-.4.26-.74.09-.34-.17-1.44-.53-2.74-1.69a10.3 10.3 0 01-1.9-2.36c-.2-.34-.02-.53.15-.7.15-.15.34-.4.51-.6.17-.2.23-.34.34-.57.12-.23.06-.43-.03-.6-.09-.17-.77-1.86-1.06-2.55-.28-.67-.56-.58-.77-.59H9.8c-.2 0-.52.07-.79.34-.28.28-1.05 1.03-1.05 2.5 0 1.48 1.08 2.91 1.23 3.11.17.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 2.02-.82 2.3-1.62.29-.8.29-1.48.2-1.62-.08-.14-.31-.23-.65-.4z"/></svg><span style="color:#fff;font-size:0.72rem;font-weight:600;">N° 900-452-563</span></a>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-category">🤖 Inteligencia Artificial</p>
+        <h3 class="card-title">Machine Learning Sin Código</h3>
+        <p class="card-author">— Diego Morales</p>
+        <div class="card-stars">★★★★☆ <span>(203 reseñas)</span></div>
+        <div class="card-footer">
+          <div class="card-price">$22.99</div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="book-card unavailable" data-cat="Inteligencia Artificial">
+      <div class="card-cover">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#141e30,#243b55);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.2rem;text-align:center;position:relative;">
+          <div style="font-size:2.8rem;margin-bottom:0.5rem;">🤖</div>
+          <div style="font-size:0.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:0.4rem;">Inteligencia Artificial</div>
+          <div style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:0.8rem;">Automatiza tu Empresa con IA</div>
+          <span style="background:#e05252;color:white;font-size:0.62rem;font-weight:700;padding:0.25rem 0.7rem;border-radius:20px;letter-spacing:1px;">🔒 Próximamente</span>
+          <a href="https://wa.me/900452563" target="_blank" style="margin-top:0.8rem;display:flex;align-items:center;gap:0.4rem;background:rgba(0,0,0,0.35);border-radius:20px;padding:0.35rem 0.8rem;text-decoration:none;"><svg viewBox="0 0 32 32" width="16" height="16" fill="#25d366"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.47.67 4.84 1.84 6.9L2 30l7.32-1.82A13.93 13.93 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm0 25.5a11.44 11.44 0 01-5.85-1.6l-.42-.25-4.34 1.08 1.1-4.22-.27-.44A11.46 11.46 0 014.5 16C4.5 9.6 9.6 4.5 16 4.5S27.5 9.6 27.5 16 22.4 27.5 16 27.5zm6.27-8.54c-.34-.17-2.02-.99-2.34-1.1-.31-.12-.54-.17-.77.17-.23.34-.88 1.1-1.08 1.33-.2.23-.4.26-.74.09-.34-.17-1.44-.53-2.74-1.69a10.3 10.3 0 01-1.9-2.36c-.2-.34-.02-.53.15-.7.15-.15.34-.4.51-.6.17-.2.23-.34.34-.57.12-.23.06-.43-.03-.6-.09-.17-.77-1.86-1.06-2.55-.28-.67-.56-.58-.77-.59H9.8c-.2 0-.52.07-.79.34-.28.28-1.05 1.03-1.05 2.5 0 1.48 1.08 2.91 1.23 3.11.17.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 2.02-.82 2.3-1.62.29-.8.29-1.48.2-1.62-.08-.14-.31-.23-.65-.4z"/></svg><span style="color:#fff;font-size:0.72rem;font-weight:600;">N° 900-452-563</span></a>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-category">🤖 Inteligencia Artificial</p>
+        <h3 class="card-title">Automatiza tu Empresa con IA</h3>
+        <p class="card-author">— Roberto Vega</p>
+        <div class="card-stars">★★★★★ <span>(318 reseñas)</span></div>
+        <div class="card-footer">
+          <div class="card-price">$24.99 <span class="old-price">$34.99</span></div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 📣 MARKETING DIGITAL — NO DISPONIBLE -->
+    <div class="book-card unavailable" data-cat="Marketing Digital">
+      <div class="card-cover">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#c94b4b,#4b134f);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.2rem;text-align:center;position:relative;">
+          <div style="font-size:2.8rem;margin-bottom:0.5rem;">📣</div>
+          <div style="font-size:0.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:0.4rem;">Marketing Digital</div>
+          <div style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:0.8rem;">Marketing Digital 360°</div>
+          <span style="background:#e05252;color:white;font-size:0.62rem;font-weight:700;padding:0.25rem 0.7rem;border-radius:20px;letter-spacing:1px;">🔒 Próximamente</span>
+          <a href="https://wa.me/900452563" target="_blank" style="margin-top:0.8rem;display:flex;align-items:center;gap:0.4rem;background:rgba(0,0,0,0.35);border-radius:20px;padding:0.35rem 0.8rem;text-decoration:none;"><svg viewBox="0 0 32 32" width="16" height="16" fill="#25d366"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.47.67 4.84 1.84 6.9L2 30l7.32-1.82A13.93 13.93 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm0 25.5a11.44 11.44 0 01-5.85-1.6l-.42-.25-4.34 1.08 1.1-4.22-.27-.44A11.46 11.46 0 014.5 16C4.5 9.6 9.6 4.5 16 4.5S27.5 9.6 27.5 16 22.4 27.5 16 27.5zm6.27-8.54c-.34-.17-2.02-.99-2.34-1.1-.31-.12-.54-.17-.77.17-.23.34-.88 1.1-1.08 1.33-.2.23-.4.26-.74.09-.34-.17-1.44-.53-2.74-1.69a10.3 10.3 0 01-1.9-2.36c-.2-.34-.02-.53.15-.7.15-.15.34-.4.51-.6.17-.2.23-.34.34-.57.12-.23.06-.43-.03-.6-.09-.17-.77-1.86-1.06-2.55-.28-.67-.56-.58-.77-.59H9.8c-.2 0-.52.07-.79.34-.28.28-1.05 1.03-1.05 2.5 0 1.48 1.08 2.91 1.23 3.11.17.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 2.02-.82 2.3-1.62.29-.8.29-1.48.2-1.62-.08-.14-.31-.23-.65-.4z"/></svg><span style="color:#fff;font-size:0.72rem;font-weight:600;">N° 900-452-563</span></a>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-category">📣 Marketing Digital y Directo</p>
+        <h3 class="card-title">Marketing Digital 360°</h3>
+        <p class="card-author">— Laura Mendez</p>
+        <div class="card-stars">★★★★★ <span>(339 reseñas)</span></div>
+        <div class="card-footer">
+          <div class="card-price">$17.99 <span class="old-price">$24.99</span></div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="book-card unavailable" data-cat="Marketing Digital">
+      <div class="card-cover">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#b92b27,#1565c0);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.2rem;text-align:center;position:relative;">
+          <div style="font-size:2.8rem;margin-bottom:0.5rem;">📣</div>
+          <div style="font-size:0.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:0.4rem;">Marketing Digital</div>
+          <div style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:0.8rem;">Ventas Directas Online</div>
+          <span style="background:#e05252;color:white;font-size:0.62rem;font-weight:700;padding:0.25rem 0.7rem;border-radius:20px;letter-spacing:1px;">🔒 Próximamente</span>
+          <a href="https://wa.me/900452563" target="_blank" style="margin-top:0.8rem;display:flex;align-items:center;gap:0.4rem;background:rgba(0,0,0,0.35);border-radius:20px;padding:0.35rem 0.8rem;text-decoration:none;"><svg viewBox="0 0 32 32" width="16" height="16" fill="#25d366"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.47.67 4.84 1.84 6.9L2 30l7.32-1.82A13.93 13.93 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm0 25.5a11.44 11.44 0 01-5.85-1.6l-.42-.25-4.34 1.08 1.1-4.22-.27-.44A11.46 11.46 0 014.5 16C4.5 9.6 9.6 4.5 16 4.5S27.5 9.6 27.5 16 22.4 27.5 16 27.5zm6.27-8.54c-.34-.17-2.02-.99-2.34-1.1-.31-.12-.54-.17-.77.17-.23.34-.88 1.1-1.08 1.33-.2.23-.4.26-.74.09-.34-.17-1.44-.53-2.74-1.69a10.3 10.3 0 01-1.9-2.36c-.2-.34-.02-.53.15-.7.15-.15.34-.4.51-.6.17-.2.23-.34.34-.57.12-.23.06-.43-.03-.6-.09-.17-.77-1.86-1.06-2.55-.28-.67-.56-.58-.77-.59H9.8c-.2 0-.52.07-.79.34-.28.28-1.05 1.03-1.05 2.5 0 1.48 1.08 2.91 1.23 3.11.17.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 2.02-.82 2.3-1.62.29-.8.29-1.48.2-1.62-.08-.14-.31-.23-.65-.4z"/></svg><span style="color:#fff;font-size:0.72rem;font-weight:600;">N° 900-452-563</span></a>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-category">📣 Marketing Digital y Directo</p>
+        <h3 class="card-title">Ventas Directas Online</h3>
+        <p class="card-author">— Alejandro Torres</p>
+        <div class="card-stars">★★★★☆ <span>(175 reseñas)</span></div>
+        <div class="card-footer">
+          <div class="card-price">$14.99</div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="book-card unavailable" data-cat="Marketing Digital">
+      <div class="card-cover">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#ee0979,#ff6a00);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.2rem;text-align:center;position:relative;">
+          <div style="font-size:2.8rem;margin-bottom:0.5rem;">📣</div>
+          <div style="font-size:0.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:0.4rem;">Marketing Digital</div>
+          <div style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:0.8rem;">Email Marketing que Convierte</div>
+          <span style="background:#e05252;color:white;font-size:0.62rem;font-weight:700;padding:0.25rem 0.7rem;border-radius:20px;letter-spacing:1px;">🔒 Próximamente</span>
+          <a href="https://wa.me/900452563" target="_blank" style="margin-top:0.8rem;display:flex;align-items:center;gap:0.4rem;background:rgba(0,0,0,0.35);border-radius:20px;padding:0.35rem 0.8rem;text-decoration:none;"><svg viewBox="0 0 32 32" width="16" height="16" fill="#25d366"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.47.67 4.84 1.84 6.9L2 30l7.32-1.82A13.93 13.93 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm0 25.5a11.44 11.44 0 01-5.85-1.6l-.42-.25-4.34 1.08 1.1-4.22-.27-.44A11.46 11.46 0 014.5 16C4.5 9.6 9.6 4.5 16 4.5S27.5 9.6 27.5 16 22.4 27.5 16 27.5zm6.27-8.54c-.34-.17-2.02-.99-2.34-1.1-.31-.12-.54-.17-.77.17-.23.34-.88 1.1-1.08 1.33-.2.23-.4.26-.74.09-.34-.17-1.44-.53-2.74-1.69a10.3 10.3 0 01-1.9-2.36c-.2-.34-.02-.53.15-.7.15-.15.34-.4.51-.6.17-.2.23-.34.34-.57.12-.23.06-.43-.03-.6-.09-.17-.77-1.86-1.06-2.55-.28-.67-.56-.58-.77-.59H9.8c-.2 0-.52.07-.79.34-.28.28-1.05 1.03-1.05 2.5 0 1.48 1.08 2.91 1.23 3.11.17.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 2.02-.82 2.3-1.62.29-.8.29-1.48.2-1.62-.08-.14-.31-.23-.65-.4z"/></svg><span style="color:#fff;font-size:0.72rem;font-weight:600;">N° 900-452-563</span></a>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-category">📣 Marketing Digital y Directo</p>
+        <h3 class="card-title">Email Marketing que Convierte</h3>
+        <p class="card-author">— Carla Ríos</p>
+        <div class="card-stars">★★★★★ <span>(284 reseñas)</span></div>
+        <div class="card-footer">
+          <div class="card-price">$12.99 <span class="old-price">$18.99</span></div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🌐 DESARROLLO WEB — NO DISPONIBLE -->
+    <div class="book-card unavailable" data-cat="Desarrollo Web">
+      <div class="card-cover">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.2rem;text-align:center;position:relative;">
+          <div style="font-size:2.8rem;margin-bottom:0.5rem;">🌐</div>
+          <div style="font-size:0.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:0.4rem;">Desarrollo Web</div>
+          <div style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:0.8rem;">HTML & CSS desde Cero</div>
+          <span style="background:#e05252;color:white;font-size:0.62rem;font-weight:700;padding:0.25rem 0.7rem;border-radius:20px;letter-spacing:1px;">🔒 Próximamente</span>
+          <a href="https://wa.me/900452563" target="_blank" style="margin-top:0.8rem;display:flex;align-items:center;gap:0.4rem;background:rgba(0,0,0,0.35);border-radius:20px;padding:0.35rem 0.8rem;text-decoration:none;"><svg viewBox="0 0 32 32" width="16" height="16" fill="#25d366"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.47.67 4.84 1.84 6.9L2 30l7.32-1.82A13.93 13.93 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm0 25.5a11.44 11.44 0 01-5.85-1.6l-.42-.25-4.34 1.08 1.1-4.22-.27-.44A11.46 11.46 0 014.5 16C4.5 9.6 9.6 4.5 16 4.5S27.5 9.6 27.5 16 22.4 27.5 16 27.5zm6.27-8.54c-.34-.17-2.02-.99-2.34-1.1-.31-.12-.54-.17-.77.17-.23.34-.88 1.1-1.08 1.33-.2.23-.4.26-.74.09-.34-.17-1.44-.53-2.74-1.69a10.3 10.3 0 01-1.9-2.36c-.2-.34-.02-.53.15-.7.15-.15.34-.4.51-.6.17-.2.23-.34.34-.57.12-.23.06-.43-.03-.6-.09-.17-.77-1.86-1.06-2.55-.28-.67-.56-.58-.77-.59H9.8c-.2 0-.52.07-.79.34-.28.28-1.05 1.03-1.05 2.5 0 1.48 1.08 2.91 1.23 3.11.17.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 2.02-.82 2.3-1.62.29-.8.29-1.48.2-1.62-.08-.14-.31-.23-.65-.4z"/></svg><span style="color:#fff;font-size:0.72rem;font-weight:600;">N° 900-452-563</span></a>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-category">🌐 Desarrollo Web</p>
+        <h3 class="card-title">HTML & CSS desde Cero</h3>
+        <p class="card-author">— Pablo Herrera</p>
+        <div class="card-stars">★★★★★ <span>(521 reseñas)</span></div>
+        <div class="card-footer">
+          <div class="card-price">$21.99 <span class="old-price">$32.99</span></div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="book-card unavailable" data-cat="Desarrollo Web">
+      <div class="card-cover">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#f7971e,#ffd200,#f7971e);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.2rem;text-align:center;position:relative;">
+          <div style="font-size:2.8rem;margin-bottom:0.5rem;">🌐</div>
+          <div style="font-size:0.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:0.4rem;">Desarrollo Web</div>
+          <div style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:0.8rem;">JavaScript para Emprendedores</div>
+          <span style="background:#e05252;color:white;font-size:0.62rem;font-weight:700;padding:0.25rem 0.7rem;border-radius:20px;letter-spacing:1px;">🔒 Próximamente</span>
+          <a href="https://wa.me/900452563" target="_blank" style="margin-top:0.8rem;display:flex;align-items:center;gap:0.4rem;background:rgba(0,0,0,0.35);border-radius:20px;padding:0.35rem 0.8rem;text-decoration:none;"><svg viewBox="0 0 32 32" width="16" height="16" fill="#25d366"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.47.67 4.84 1.84 6.9L2 30l7.32-1.82A13.93 13.93 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm0 25.5a11.44 11.44 0 01-5.85-1.6l-.42-.25-4.34 1.08 1.1-4.22-.27-.44A11.46 11.46 0 014.5 16C4.5 9.6 9.6 4.5 16 4.5S27.5 9.6 27.5 16 22.4 27.5 16 27.5zm6.27-8.54c-.34-.17-2.02-.99-2.34-1.1-.31-.12-.54-.17-.77.17-.23.34-.88 1.1-1.08 1.33-.2.23-.4.26-.74.09-.34-.17-1.44-.53-2.74-1.69a10.3 10.3 0 01-1.9-2.36c-.2-.34-.02-.53.15-.7.15-.15.34-.4.51-.6.17-.2.23-.34.34-.57.12-.23.06-.43-.03-.6-.09-.17-.77-1.86-1.06-2.55-.28-.67-.56-.58-.77-.59H9.8c-.2 0-.52.07-.79.34-.28.28-1.05 1.03-1.05 2.5 0 1.48 1.08 2.91 1.23 3.11.17.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 2.02-.82 2.3-1.62.29-.8.29-1.48.2-1.62-.08-.14-.31-.23-.65-.4z"/></svg><span style="color:#fff;font-size:0.72rem;font-weight:600;">N° 900-452-563</span></a>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-category">🌐 Desarrollo Web</p>
+        <h3 class="card-title">JavaScript para Emprendedores</h3>
+        <p class="card-author">— Ana López</p>
+        <div class="card-stars">★★★★☆ <span>(156 reseñas)</span></div>
+        <div class="card-footer">
+          <div class="card-price">$18.99</div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="book-card unavailable" data-cat="Desarrollo Web">
+      <div class="card-cover">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#005c97,#363795);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.2rem;text-align:center;position:relative;">
+          <div style="font-size:2.8rem;margin-bottom:0.5rem;">🌐</div>
+          <div style="font-size:0.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:0.4rem;">Desarrollo Web</div>
+          <div style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:0.8rem;">Tu Web Profesional en 7 Días</div>
+          <span style="background:#e05252;color:white;font-size:0.62rem;font-weight:700;padding:0.25rem 0.7rem;border-radius:20px;letter-spacing:1px;">🔒 Próximamente</span>
+          <a href="https://wa.me/900452563" target="_blank" style="margin-top:0.8rem;display:flex;align-items:center;gap:0.4rem;background:rgba(0,0,0,0.35);border-radius:20px;padding:0.35rem 0.8rem;text-decoration:none;"><svg viewBox="0 0 32 32" width="16" height="16" fill="#25d366"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.47.67 4.84 1.84 6.9L2 30l7.32-1.82A13.93 13.93 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm0 25.5a11.44 11.44 0 01-5.85-1.6l-.42-.25-4.34 1.08 1.1-4.22-.27-.44A11.46 11.46 0 014.5 16C4.5 9.6 9.6 4.5 16 4.5S27.5 9.6 27.5 16 22.4 27.5 16 27.5zm6.27-8.54c-.34-.17-2.02-.99-2.34-1.1-.31-.12-.54-.17-.77.17-.23.34-.88 1.1-1.08 1.33-.2.23-.4.26-.74.09-.34-.17-1.44-.53-2.74-1.69a10.3 10.3 0 01-1.9-2.36c-.2-.34-.02-.53.15-.7.15-.15.34-.4.51-.6.17-.2.23-.34.34-.57.12-.23.06-.43-.03-.6-.09-.17-.77-1.86-1.06-2.55-.28-.67-.56-.58-.77-.59H9.8c-.2 0-.52.07-.79.34-.28.28-1.05 1.03-1.05 2.5 0 1.48 1.08 2.91 1.23 3.11.17.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 2.02-.82 2.3-1.62.29-.8.29-1.48.2-1.62-.08-.14-.31-.23-.65-.4z"/></svg><span style="color:#fff;font-size:0.72rem;font-weight:600;">N° 900-452-563</span></a>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-category">🌐 Desarrollo Web</p>
+        <h3 class="card-title">Tu Web Profesional en 7 Días</h3>
+        <p class="card-author">— María Fernández</p>
+        <div class="card-stars">★★★★★ <span>(267 reseñas)</span></div>
+        <div class="card-footer">
+          <div class="card-price">$15.99 <span class="old-price">$22.99</span></div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 📊 DATOS EMPRESARIALES — NO DISPONIBLE -->
+    <div class="book-card unavailable" data-cat="Datos Empresariales">
+      <div class="card-cover">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#134e5e,#71b280);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.2rem;text-align:center;position:relative;">
+          <div style="font-size:2.8rem;margin-bottom:0.5rem;">📊</div>
+          <div style="font-size:0.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:0.4rem;">Datos Empresariales</div>
+          <div style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:0.8rem;">Excel para Directivos</div>
+          <span style="background:#e05252;color:white;font-size:0.62rem;font-weight:700;padding:0.25rem 0.7rem;border-radius:20px;letter-spacing:1px;">🔒 Próximamente</span>
+          <a href="https://wa.me/900452563" target="_blank" style="margin-top:0.8rem;display:flex;align-items:center;gap:0.4rem;background:rgba(0,0,0,0.35);border-radius:20px;padding:0.35rem 0.8rem;text-decoration:none;"><svg viewBox="0 0 32 32" width="16" height="16" fill="#25d366"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.47.67 4.84 1.84 6.9L2 30l7.32-1.82A13.93 13.93 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm0 25.5a11.44 11.44 0 01-5.85-1.6l-.42-.25-4.34 1.08 1.1-4.22-.27-.44A11.46 11.46 0 014.5 16C4.5 9.6 9.6 4.5 16 4.5S27.5 9.6 27.5 16 22.4 27.5 16 27.5zm6.27-8.54c-.34-.17-2.02-.99-2.34-1.1-.31-.12-.54-.17-.77.17-.23.34-.88 1.1-1.08 1.33-.2.23-.4.26-.74.09-.34-.17-1.44-.53-2.74-1.69a10.3 10.3 0 01-1.9-2.36c-.2-.34-.02-.53.15-.7.15-.15.34-.4.51-.6.17-.2.23-.34.34-.57.12-.23.06-.43-.03-.6-.09-.17-.77-1.86-1.06-2.55-.28-.67-.56-.58-.77-.59H9.8c-.2 0-.52.07-.79.34-.28.28-1.05 1.03-1.05 2.5 0 1.48 1.08 2.91 1.23 3.11.17.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 2.02-.82 2.3-1.62.29-.8.29-1.48.2-1.62-.08-.14-.31-.23-.65-.4z"/></svg><span style="color:#fff;font-size:0.72rem;font-weight:600;">N° 900-452-563</span></a>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-category">📊 Datos Empresariales</p>
+        <h3 class="card-title">Excel para Directivos</h3>
+        <p class="card-author">— Carlos Ruiz</p>
+        <div class="card-stars">★★★★★ <span>(448 reseñas)</span></div>
+        <div class="card-footer">
+          <div class="card-price">$16.99 <span class="old-price">$24.99</span></div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="book-card unavailable" data-cat="Datos Empresariales">
+      <div class="card-cover">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#093028,#237a57);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.2rem;text-align:center;position:relative;">
+          <div style="font-size:2.8rem;margin-bottom:0.5rem;">📊</div>
+          <div style="font-size:0.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:0.4rem;">Datos Empresariales</div>
+          <div style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:0.8rem;">Dashboards que Deciden</div>
+          <span style="background:#e05252;color:white;font-size:0.62rem;font-weight:700;padding:0.25rem 0.7rem;border-radius:20px;letter-spacing:1px;">🔒 Próximamente</span>
+          <a href="https://wa.me/900452563" target="_blank" style="margin-top:0.8rem;display:flex;align-items:center;gap:0.4rem;background:rgba(0,0,0,0.35);border-radius:20px;padding:0.35rem 0.8rem;text-decoration:none;"><svg viewBox="0 0 32 32" width="16" height="16" fill="#25d366"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.47.67 4.84 1.84 6.9L2 30l7.32-1.82A13.93 13.93 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm0 25.5a11.44 11.44 0 01-5.85-1.6l-.42-.25-4.34 1.08 1.1-4.22-.27-.44A11.46 11.46 0 014.5 16C4.5 9.6 9.6 4.5 16 4.5S27.5 9.6 27.5 16 22.4 27.5 16 27.5zm6.27-8.54c-.34-.17-2.02-.99-2.34-1.1-.31-.12-.54-.17-.77.17-.23.34-.88 1.1-1.08 1.33-.2.23-.4.26-.74.09-.34-.17-1.44-.53-2.74-1.69a10.3 10.3 0 01-1.9-2.36c-.2-.34-.02-.53.15-.7.15-.15.34-.4.51-.6.17-.2.23-.34.34-.57.12-.23.06-.43-.03-.6-.09-.17-.77-1.86-1.06-2.55-.28-.67-.56-.58-.77-.59H9.8c-.2 0-.52.07-.79.34-.28.28-1.05 1.03-1.05 2.5 0 1.48 1.08 2.91 1.23 3.11.17.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 2.02-.82 2.3-1.62.29-.8.29-1.48.2-1.62-.08-.14-.31-.23-.65-.4z"/></svg><span style="color:#fff;font-size:0.72rem;font-weight:600;">N° 900-452-563</span></a>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-category">📊 Datos Empresariales</p>
+        <h3 class="card-title">Dashboards que Deciden</h3>
+        <p class="card-author">— Enrique Castillo</p>
+        <div class="card-stars">★★★★☆ <span>(97 reseñas)</span></div>
+        <div class="card-footer">
+          <div class="card-price">$19.99</div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="book-card unavailable" data-cat="Datos Empresariales">
+      <div class="card-cover">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#1e3c72,#2a5298);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.2rem;text-align:center;position:relative;">
+          <div style="font-size:2.8rem;margin-bottom:0.5rem;">📊</div>
+          <div style="font-size:0.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:0.4rem;">Datos Empresariales</div>
+          <div style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:0.8rem;">Análisis Financiero Digital</div>
+          <span style="background:#e05252;color:white;font-size:0.62rem;font-weight:700;padding:0.25rem 0.7rem;border-radius:20px;letter-spacing:1px;">🔒 Próximamente</span>
+          <a href="https://wa.me/900452563" target="_blank" style="margin-top:0.8rem;display:flex;align-items:center;gap:0.4rem;background:rgba(0,0,0,0.35);border-radius:20px;padding:0.35rem 0.8rem;text-decoration:none;"><svg viewBox="0 0 32 32" width="16" height="16" fill="#25d366"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.47.67 4.84 1.84 6.9L2 30l7.32-1.82A13.93 13.93 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm0 25.5a11.44 11.44 0 01-5.85-1.6l-.42-.25-4.34 1.08 1.1-4.22-.27-.44A11.46 11.46 0 014.5 16C4.5 9.6 9.6 4.5 16 4.5S27.5 9.6 27.5 16 22.4 27.5 16 27.5zm6.27-8.54c-.34-.17-2.02-.99-2.34-1.1-.31-.12-.54-.17-.77.17-.23.34-.88 1.1-1.08 1.33-.2.23-.4.26-.74.09-.34-.17-1.44-.53-2.74-1.69a10.3 10.3 0 01-1.9-2.36c-.2-.34-.02-.53.15-.7.15-.15.34-.4.51-.6.17-.2.23-.34.34-.57.12-.23.06-.43-.03-.6-.09-.17-.77-1.86-1.06-2.55-.28-.67-.56-.58-.77-.59H9.8c-.2 0-.52.07-.79.34-.28.28-1.05 1.03-1.05 2.5 0 1.48 1.08 2.91 1.23 3.11.17.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 2.02-.82 2.3-1.62.29-.8.29-1.48.2-1.62-.08-.14-.31-.23-.65-.4z"/></svg><span style="color:#fff;font-size:0.72rem;font-weight:600;">N° 900-452-563</span></a>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-category">📊 Datos Empresariales</p>
+        <h3 class="card-title">Análisis Financiero Digital</h3>
+        <p class="card-author">— Luis Sánchez</p>
+        <div class="card-stars">★★★★★ <span>(189 reseñas)</span></div>
+        <div class="card-footer">
+          <div class="card-price">$23.99 <span class="old-price">$31.99</span></div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🎨 DISEÑO — NO DISPONIBLE -->
+    <div class="book-card unavailable" data-cat="Diseño">
+      <div class="card-cover">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#7f00ff,#e100ff);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.2rem;text-align:center;position:relative;">
+          <div style="font-size:2.8rem;margin-bottom:0.5rem;">🎨</div>
+          <div style="font-size:0.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:0.4rem;">Diseño</div>
+          <div style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:0.8rem;">Canva Pro Masterclass</div>
+          <span style="background:#e05252;color:white;font-size:0.62rem;font-weight:700;padding:0.25rem 0.7rem;border-radius:20px;letter-spacing:1px;">🔒 Próximamente</span>
+          <a href="https://wa.me/900452563" target="_blank" style="margin-top:0.8rem;display:flex;align-items:center;gap:0.4rem;background:rgba(0,0,0,0.35);border-radius:20px;padding:0.35rem 0.8rem;text-decoration:none;"><svg viewBox="0 0 32 32" width="16" height="16" fill="#25d366"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.47.67 4.84 1.84 6.9L2 30l7.32-1.82A13.93 13.93 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm0 25.5a11.44 11.44 0 01-5.85-1.6l-.42-.25-4.34 1.08 1.1-4.22-.27-.44A11.46 11.46 0 014.5 16C4.5 9.6 9.6 4.5 16 4.5S27.5 9.6 27.5 16 22.4 27.5 16 27.5zm6.27-8.54c-.34-.17-2.02-.99-2.34-1.1-.31-.12-.54-.17-.77.17-.23.34-.88 1.1-1.08 1.33-.2.23-.4.26-.74.09-.34-.17-1.44-.53-2.74-1.69a10.3 10.3 0 01-1.9-2.36c-.2-.34-.02-.53.15-.7.15-.15.34-.4.51-.6.17-.2.23-.34.34-.57.12-.23.06-.43-.03-.6-.09-.17-.77-1.86-1.06-2.55-.28-.67-.56-.58-.77-.59H9.8c-.2 0-.52.07-.79.34-.28.28-1.05 1.03-1.05 2.5 0 1.48 1.08 2.91 1.23 3.11.17.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 2.02-.82 2.3-1.62.29-.8.29-1.48.2-1.62-.08-.14-.31-.23-.65-.4z"/></svg><span style="color:#fff;font-size:0.72rem;font-weight:600;">N° 900-452-563</span></a>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-category">🎨 Diseño</p>
+        <h3 class="card-title">Canva Pro Masterclass</h3>
+        <p class="card-author">— Isabel Ramos</p>
+        <div class="card-stars">★★★★★ <span>(621 reseñas)</span></div>
+        <div class="card-footer">
+          <div class="card-price">$13.99 <span class="old-price">$19.99</span></div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="book-card unavailable" data-cat="Diseño">
+      <div class="card-cover">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#f953c6,#b91d73);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.2rem;text-align:center;position:relative;">
+          <div style="font-size:2.8rem;margin-bottom:0.5rem;">🎨</div>
+          <div style="font-size:0.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:0.4rem;">Diseño</div>
+          <div style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:0.8rem;">Branding para Emprendedores</div>
+          <span style="background:#e05252;color:white;font-size:0.62rem;font-weight:700;padding:0.25rem 0.7rem;border-radius:20px;letter-spacing:1px;">🔒 Próximamente</span>
+          <a href="https://wa.me/900452563" target="_blank" style="margin-top:0.8rem;display:flex;align-items:center;gap:0.4rem;background:rgba(0,0,0,0.35);border-radius:20px;padding:0.35rem 0.8rem;text-decoration:none;"><svg viewBox="0 0 32 32" width="16" height="16" fill="#25d366"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.47.67 4.84 1.84 6.9L2 30l7.32-1.82A13.93 13.93 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm0 25.5a11.44 11.44 0 01-5.85-1.6l-.42-.25-4.34 1.08 1.1-4.22-.27-.44A11.46 11.46 0 014.5 16C4.5 9.6 9.6 4.5 16 4.5S27.5 9.6 27.5 16 22.4 27.5 16 27.5zm6.27-8.54c-.34-.17-2.02-.99-2.34-1.1-.31-.12-.54-.17-.77.17-.23.34-.88 1.1-1.08 1.33-.2.23-.4.26-.74.09-.34-.17-1.44-.53-2.74-1.69a10.3 10.3 0 01-1.9-2.36c-.2-.34-.02-.53.15-.7.15-.15.34-.4.51-.6.17-.2.23-.34.34-.57.12-.23.06-.43-.03-.6-.09-.17-.77-1.86-1.06-2.55-.28-.67-.56-.58-.77-.59H9.8c-.2 0-.52.07-.79.34-.28.28-1.05 1.03-1.05 2.5 0 1.48 1.08 2.91 1.23 3.11.17.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 2.02-.82 2.3-1.62.29-.8.29-1.48.2-1.62-.08-.14-.31-.23-.65-.4z"/></svg><span style="color:#fff;font-size:0.72rem;font-weight:600;">N° 900-452-563</span></a>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-category">🎨 Diseño</p>
+        <h3 class="card-title">Branding para Emprendedores</h3>
+        <p class="card-author">— Marc Dupont</p>
+        <div class="card-stars">★★★★☆ <span>(142 reseñas)</span></div>
+        <div class="card-footer">
+          <div class="card-price">$16.99</div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="book-card unavailable" data-cat="Diseño">
+      <div class="card-cover">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#4568dc,#b06ab3);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.2rem;text-align:center;position:relative;">
+          <div style="font-size:2.8rem;margin-bottom:0.5rem;">🎨</div>
+          <div style="font-size:0.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:0.4rem;">Diseño</div>
+          <div style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:0.8rem;">UI/UX para No Diseñadores</div>
+          <span style="background:#e05252;color:white;font-size:0.62rem;font-weight:700;padding:0.25rem 0.7rem;border-radius:20px;letter-spacing:1px;">🔒 Próximamente</span>
+          <a href="https://wa.me/900452563" target="_blank" style="margin-top:0.8rem;display:flex;align-items:center;gap:0.4rem;background:rgba(0,0,0,0.35);border-radius:20px;padding:0.35rem 0.8rem;text-decoration:none;"><svg viewBox="0 0 32 32" width="16" height="16" fill="#25d366"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.47.67 4.84 1.84 6.9L2 30l7.32-1.82A13.93 13.93 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm0 25.5a11.44 11.44 0 01-5.85-1.6l-.42-.25-4.34 1.08 1.1-4.22-.27-.44A11.46 11.46 0 014.5 16C4.5 9.6 9.6 4.5 16 4.5S27.5 9.6 27.5 16 22.4 27.5 16 27.5zm6.27-8.54c-.34-.17-2.02-.99-2.34-1.1-.31-.12-.54-.17-.77.17-.23.34-.88 1.1-1.08 1.33-.2.23-.4.26-.74.09-.34-.17-1.44-.53-2.74-1.69a10.3 10.3 0 01-1.9-2.36c-.2-.34-.02-.53.15-.7.15-.15.34-.4.51-.6.17-.2.23-.34.34-.57.12-.23.06-.43-.03-.6-.09-.17-.77-1.86-1.06-2.55-.28-.67-.56-.58-.77-.59H9.8c-.2 0-.52.07-.79.34-.28.28-1.05 1.03-1.05 2.5 0 1.48 1.08 2.91 1.23 3.11.17.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 2.02-.82 2.3-1.62.29-.8.29-1.48.2-1.62-.08-.14-.31-.23-.65-.4z"/></svg><span style="color:#fff;font-size:0.72rem;font-weight:600;">N° 900-452-563</span></a>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-category">🎨 Diseño</p>
+        <h3 class="card-title">UI/UX para No Diseñadores</h3>
+        <p class="card-author">— Carla Ríos</p>
+        <div class="card-stars">★★★★★ <span>(88 reseñas)</span></div>
+        <div class="card-footer">
+          <div class="card-price">$18.99 <span class="old-price">$26.99</span></div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="empty-state" id="emptyState">
+      <p>No se encontraron libros en esta categoría.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- CART OVERLAY -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-header-p">
+    <h2>Tu Carrito</h2>
+    <button class="cart-close" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items-list" id="cartItemsList">
+    <p class="cart-empty-msg">Tu carrito está vacío.<br>¡Añade algunos eBooks!</p>
+  </div>
+  <div class="cart-footer-p" id="cartFooter" style="display:none">
+    <div class="cart-total">
+      <span>Total</span>
+      <strong id="cartTotal">$0.00</strong>
+    </div>
+    <a href="https://hotm.io/I8gQsSLJ" target="_blank" class="checkout-btn" style="display:block;text-align:center;text-decoration:none;">Ir al Pago → 🚀</a>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- MODAL VER MÁS -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2>🤖 Inteligencia Artificial:<br>Aprende a Crear y Transformar</h2>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p>🚀 ¡Adéntrate en el fascinante mundo de la Inteligencia Artificial! 🌟 ¿Te imaginas crear soluciones innovadoras que cambien el mundo? Con nuestro curso dinámico y práctico, aprenderás todo lo necesario para dar el salto hacia el futuro tecnológico.</p>
+
+      <p><strong>💡 ¿Qué aprenderás?</strong></p>
+      <p class="emoji-line">✔️ Descubre cómo funciona el aprendizaje automático (Machine Learning).</p>
+      <p class="emoji-line">✔️ Diseña modelos inteligentes para resolver problemas reales.</p>
+      <p class="emoji-line">✔️ Transforma tus ideas en proyectos impactantes.</p>
+      <p class="emoji-line">✔️ Potencia tu creatividad aplicando IA en diversas áreas.</p>
+
+      <p style="margin-top:0.8rem;"><strong>👩‍💻 Ideal para:</strong></p>
+      <p class="emoji-line">• Principiantes curiosos y apasionados por la tecnología.</p>
+      <p class="emoji-line">• Profesionales como docentes, abogados y más, que quieran integrar la IA en sus campos.</p>
+
+      <p style="margin-top:0.8rem;"><strong>🎓 ¿Qué incluye este curso?</strong></p>
+      <p class="emoji-line">✅ Clases en vivo 100% prácticas y online.</p>
+      <p class="emoji-line">✅ Grabaciones en Full HD para repasar cuando quieras.</p>
+      <p class="emoji-line">✅ Materiales y software incluidos.</p>
+      <p class="emoji-line">✅ Certificación reconocida virtual y física al finalizar.</p>
+
+      <p style="margin-top:0.8rem;"><strong>🌟 Beneficios que transformarán tu vida:</strong></p>
+      <p class="emoji-line">✨ Aprende de forma práctica, divertida y efectiva.</p>
+      <p class="emoji-line">✨ Domina herramientas y conceptos clave en IA.</p>
+      <p class="emoji-line">✨ Destácate en un mundo liderado por la tecnología.</p>
+
+      <p style="margin-top:0.8rem;">🕒 <strong>¡No dejes pasar esta oportunidad!</strong> Inscríbete hoy y conviértete en un pionero de la revolución tecnológica. El futuro te espera. 🚀</p>
+      <p>📩 <strong>¡Reserva tu lugar ahora y asegura tu transformación!</strong></p>
+
+      <div class="modal-price-section">
+        <div>
+          <div class="modal-old-price">Precio normal: 200,00 US$</div>
+          <div class="modal-price">180,00 US$</div>
+        </div>
+        <a href="https://hotm.io/I8gQsSLJ" target="_blank" class="modal-cta" style="text-decoration:none;display:inline-block;">
+          🛒 Comprar ahora
+        </a>
+      </div>
+
+      <a href="https://wa.me/900452563" target="_blank" class="modal-wa">
+        <svg viewBox="0 0 32 32" width="20" height="20" fill="#25d366"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.47.67 4.84 1.84 6.9L2 30l7.32-1.82A13.93 13.93 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm0 25.5a11.44 11.44 0 01-5.85-1.6l-.42-.25-4.34 1.08 1.1-4.22-.27-.44A11.46 11.46 0 014.5 16C4.5 9.6 9.6 4.5 16 4.5S27.5 9.6 27.5 16 22.4 27.5 16 27.5zm6.27-8.54c-.34-.17-2.02-.99-2.34-1.1-.31-.12-.54-.17-.77.17-.23.34-.88 1.1-1.08 1.33-.2.23-.4.26-.74.09-.34-.17-1.44-.53-2.74-1.69a10.3 10.3 0 01-1.9-2.36c-.2-.34-.02-.53.15-.7.15-.15.34-.4.51-.6.17-.2.23-.34.34-.57.12-.23.06-.43-.03-.6-.09-.17-.77-1.86-1.06-2.55-.28-.67-.56-.58-.77-.59H9.8c-.2 0-.52.07-.79.34-.28.28-1.05 1.03-1.05 2.5 0 1.48 1.08 2.91 1.23 3.11.17.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 2.02-.82 2.3-1.62.29-.8.29-1.48.2-1.62-.08-.14-.31-.23-.65-.4z"/></svg>
+        Más información al <strong style="color:white;margin-left:3px;">N° 900-452-563</strong>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <strong>Lucktan</strong> — Todos los derechos reservados. Los precios en USD.</p>
+</footer>
+
+<script>
+  // ── CAROUSEL ──
+  let current = 0;
+  const slides = document.querySelectorAll('.carousel-slide');
+  const track = document.getElementById('carouselTrack');
+  const dotsContainer = document.getElementById('carouselDots');
+  let autoplay;
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.onclick = () => goTo(i);
+    dotsContainer.appendChild(dot);
+  });
+
+  function goTo(n) {
+    current = (n + slides.length) % slides.length;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  function moveCarousel(dir) {
+    goTo(current + dir);
+    resetAutoplay();
+  }
+
+  function resetAutoplay() {
+    clearInterval(autoplay);
+    autoplay = setInterval(() => goTo(current + 1), 5000);
+  }
+
+  autoplay = setInterval(() => goTo(current + 1), 5000);
+
+  // ── FILTER ──
+  function filterBooks(cat, btn) {
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const cards = document.querySelectorAll('.book-card');
+    let visible = 0;
+    cards.forEach(card => {
+      const show = cat === 'all' || card.dataset.cat === cat;
+      card.classList.toggle('hidden', !show);
+      if (show) visible++;
+    });
+
+    document.getElementById('emptyState').classList.toggle('show', visible === 0);
+  }
+
+  // ── CART ──
+  let cart = [];
+
+  function toggleCart() {
+    document.getElementById('cartOverlay').classList.toggle('open');
+    document.getElementById('cartPanel').classList.toggle('open');
+  }
+
+  function addToCart(title, price, img, cat) {
+    cart.push({ title, price, img, cat, id: Date.now() });
+    updateCart();
+    showToast(`"${title}" añadido al carrito ✓`);
+  }
+
+  function addToCartFromHero(title, price, img, cat) {
+    addToCart(title, price, img, cat);
+  }
+
+  function removeFromCart(id) {
+    cart = cart.filter(i => i.id !== id);
+    updateCart();
+  }
+
+  function updateCart() {
+    const list = document.getElementById('cartItemsList');
+    const footer = document.getElementById('cartFooter');
+    const count = document.getElementById('cartCount');
+    const total = document.getElementById('cartTotal');
+
+    count.textContent = cart.length;
+
+    if (cart.length === 0) {
+      list.innerHTML = '<p class="cart-empty-msg">Tu carrito está vacío.<br>¡Añade algunos eBooks!</p>';
+      footer.style.display = 'none';
+      return;
+    }
+
+    footer.style.display = 'block';
+    list.innerHTML = cart.map(item => `
+      <div class="cart-item">
+        <img class="cart-item-img" src="${item.img}" alt="${item.title}">
+        <div class="cart-item-info">
+          <div class="cart-item-title">${item.title}</div>
+          <div class="cart-item-author">${item.cat}</div>
+          <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+        </div>
+        <button class="cart-item-remove" onclick="removeFromCart(${item.id})">✕</button>
+      </div>
+    `).join('');
+
+    const sum = cart.reduce((a, i) => a + i.price, 0);
+    total.textContent = `$${sum.toFixed(2)}`;
+  }
+
+  // ── WISHLIST ──
+  function toggleWish(btn) {
+    btn.classList.toggle('liked');
+    btn.textContent = btn.classList.contains('liked') ? '♥' : '♡';
+    if (btn.classList.contains('liked')) showToast('Añadido a favoritos ♥');
+  }
+
+  // ── PRODUCT CARD CAROUSEL (auto) ──
+  let prodCurrent = 0;
+  const prodSlides = document.querySelectorAll('.prod-slide');
+  const prodDots = document.querySelectorAll('.pd');
+
+  function prodGoTo(n) {
+    prodSlides[prodCurrent].classList.remove('active');
+    prodDots[prodCurrent].classList.remove('active');
+    prodCurrent = (n + prodSlides.length) % prodSlides.length;
+    prodSlides[prodCurrent].classList.add('active');
+    prodDots[prodCurrent].classList.add('active');
+  }
+
+  prodDots.forEach((d, i) => d.addEventListener('click', () => prodGoTo(i)));
+  setInterval(() => prodGoTo(prodCurrent + 1), 3000);
+
+  // ── MODAL ──
+  function openModal() {
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function closeModalOutside(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2800);
+  }
+</script>
+</body>
+</html>
